@@ -1,0 +1,15 @@
+{
+  "name": "luxe-affiliate",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["frontend", "worker"],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=worker\" \"npm run dev --workspace=frontend\"",
+    "deploy": "npm run deploy --workspace=worker && npm run deploy --workspace=frontend",
+    "db:migrate": "npm run db:migrate --workspace=worker",
+    "db:seed": "npm run db:seed --workspace=worker"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

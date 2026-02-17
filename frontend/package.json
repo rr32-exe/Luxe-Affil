@@ -1,0 +1,15 @@
+{
+  "name": "luxe-affiliate-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "wrangler pages deploy dist --project-name=luxe-affiliate"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "wrangler": "^3.78.0"
+  }
+}

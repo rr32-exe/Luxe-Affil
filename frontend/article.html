@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading… — LUXE STANDARD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Tenor+Sans&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --charcoal: #1a1a1a;
+      --graphite: #2d2d2d;
+      --slate: #4a4a4a;
+      --mist: #9a9a9a;
+      --silver: #c8c8c8;
+      --ivory: #f5f0e8;
+      --cream: #faf7f2;
+      --white: #ffffff;
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-ui: 'Tenor Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --content-width: 720px;
+      --gutter: clamp(1.5rem, 4vw, 4rem);
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--charcoal); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--gold);
+      z-index: 200;
+      transition: width 0.1s ease;
+      width: 0%;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 var(--gutter); height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(250, 247, 242, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .nav-logo {
+      font-family: var(--font-ui); font-size: 1rem; letter-spacing: 0.25em;
+      color: var(--black); text-decoration: none;
+    }
+
+    .nav-back {
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--slate); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color var(--transition);
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* Article hero */
+    .article-hero {
+      padding-top: 64px;
+      min-height: 60vh;
+      display: flex;
+      align-items: flex-end;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+    }
+
+    .article-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.3) 60%, transparent 100%);
+    }
+
+    .article-hero-content {
+      position: relative; z-index: 2;
+      max-width: var(--content-width);
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem var(--gutter);
+    }
+
+    .article-category {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .article-category::before {
+      content: ''; display: block; width: 30px; height: 1px; background: var(--gold);
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      font-weight: 300; line-height: 1.15;
+      color: var(--white); margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .article-subtitle {
+      font-family: var(--font-display); font-style: italic;
+      font-size: 1.2rem; color: rgba(255,255,255,0.6);
+      margin-bottom: 2rem; font-weight: 300;
+    }
+
+    .article-meta {
+      display: flex; align-items: center; gap: 1.5rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    .article-meta-badge {
+      background: var(--gold); color: var(--black);
+      padding: 0.25rem 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-size: 0.65rem; border-radius: 2px;
+    }
+
+    /* Article body */
+    .article-body-wrapper {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 4rem var(--gutter);
+    }
+
+    .article-body {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--charcoal);
+    }
+
+    .article-body h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--black);
+      margin: 3rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 400;
+      color: var(--black); margin: 2rem 0 0.75rem;
+    }
+
+    .article-body p { margin-bottom: 1.5rem; }
+
+    .article-body a.affiliate-cta {
+      color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.4);
+      transition: border-color var(--transition), color var(--transition);
+      font-weight: 500;
+    }
+    .article-body a.affiliate-cta:hover { color: var(--black); border-color: var(--black); }
+
+    .article-body ul, .article-body ol {
+      padding-left: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .article-body li { margin-bottom: 0.5rem; }
+
+    .article-body blockquote {
+      border-left: 2px solid var(--gold);
+      padding: 1rem 2rem;
+      margin: 2.5rem 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    .article-body strong { font-weight: 600; color: var(--black); }
+
+    .article-body table {
+      width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.9rem;
+    }
+
+    .article-body th {
+      background: var(--black); color: var(--white);
+      padding: 0.75rem 1rem; text-align: left;
+      font-family: var(--font-body); font-size: 0.72rem;
+      font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    .article-body td {
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--ivory);
+    }
+
+    .article-body tr:hover td { background: var(--ivory); }
+
+    /* CTA Box */
+    .cta-box {
+      background: var(--black); color: var(--white);
+      padding: 2.5rem; margin: 3rem 0; text-align: center;
+    }
+
+    .cta-box-label {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-box-title {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+
+    .cta-box-price {
+      font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: var(--gold); color: var(--black);
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.9rem 2rem; text-decoration: none;
+      transition: all var(--transition); border: 1px solid var(--gold);
+    }
+
+    .cta-btn:hover {
+      background: transparent; color: var(--gold);
+    }
+
+    /* Related */
+    .related-section {
+      background: var(--ivory); padding: clamp(3rem, 6vh, 5rem) var(--gutter);
+    }
+
+    .related-inner {
+      max-width: var(--content-width); margin: 0 auto;
+    }
+
+    .related-title {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
+      color: var(--black); margin-bottom: 2rem;
+    }
+
+    .related-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1.5rem;
+    }
+
+    .related-item {
+      text-decoration: none; color: inherit; display: block;
+      transition: transform var(--transition);
+    }
+    .related-item:hover { transform: translateY(-3px); }
+
+    .related-img {
+      aspect-ratio: 3/2; background: var(--charcoal); margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+
+    .related-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .related-item-title {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 400;
+      color: var(--black); line-height: 1.4;
+    }
+
+    .related-item-read {
+      font-size: 0.72rem; color: var(--mist); margin-top: 0.25rem;
+    }
+
+    /* Footer */
+    .article-footer {
+      background: var(--black); color: rgba(255,255,255,0.3);
+      padding: 2rem var(--gutter); text-align: center;
+      font-size: 0.78rem;
+    }
+    .article-footer a { color: var(--gold); text-decoration: none; }
+
+    /* Loading */
+    #loading {
+      min-height: 80vh; display: flex; align-items: center; justify-content: center;
+      padding-top: 64px;
+      font-family: var(--font-display); font-size: 1.5rem; font-style: italic;
+      color: var(--mist);
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">LUXE STANDARD</a>
+    <a href="/" class="nav-back">← Archive</a>
+  </nav>
+
+  <div id="loading">Loading article…</div>
+  <main id="article-content" style="display:none"></main>
+
+  <script type="module">
+    const API = '/api';
+    const slug = window.location.pathname.split('/').filter(Boolean).pop();
+
+    // Reading progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      progress.style.width = `${Math.round((window.scrollY / total) * 100)}%`;
+    }, { passive: true });
+
+    async function loadArticle() {
+      try {
+        const article = await fetch(`${API}/articles/${slug}`).then(r => {
+          if (!r.ok) throw new Error(r.status);
+          return r.json();
+        });
+
+        // Update meta
+        document.title = `${article.seo_title || article.title} — LUXE STANDARD`;
+        document.querySelector('meta[name="description"]')?.setAttribute('content', article.seo_description || '');
+
+        // Add schema JSON-LD
+        if (article.schema_json) {
+          const script = document.createElement('script');
+          script.type = 'application/ld+json';
+          script.textContent = article.schema_json;
+          document.head.appendChild(script);
+        }
+
+        const heroBg = article.hero_image_url
+          ? `style="background-image:url('${article.hero_image_url}')"` : '';
+
+        const relatedHtml = article.related?.length ? `
+          <section class="related-section">
+            <div class="related-inner">
+              <h3 class="related-title">Continue Reading</h3>
+              <div class="related-grid">
+                ${article.related.map(r => `
+                  <a href="/articles/${r.slug}" class="related-item">
+                    <div class="related-img">
+                      ${r.hero_image_url ? `<img src="${r.hero_image_url}" alt="${r.title}" loading="lazy">` : ''}
+                    </div>
+                    <div class="related-item-title">${r.title}</div>
+                    <div class="related-item-read">${r.read_time_minutes} min read</div>
+                  </a>`).join('')}
+              </div>
+            </div>
+          </section>` : '';
+
+        const ctaHtml = article.tracked_url ? `
+          <div class="cta-box">
+            <div class="cta-box-label">Featured Object</div>
+            <div class="cta-box-title">${article.product_name || article.title}</div>
+            ${article.price_display ? `<div class="cta-box-price">From ${article.price_display}</div>` : ''}
+            <a href="${article.tracked_url}" class="cta-btn" rel="nofollow sponsored" target="_blank">
+              View on ${article.brand || 'Retailer'} ↗
+            </a>
+          </div>` : '';
+
+        document.getElementById('article-content').innerHTML = `
+          <header class="article-hero">
+            <div class="article-hero-bg" ${heroBg}></div>
+            <div class="article-hero-overlay"></div>
+            <div class="article-hero-content">
+              <div class="article-category">${article.category_name || ''}</div>
+              <h1 class="article-title">${article.title}</h1>
+              ${article.subtitle ? `<p class="article-subtitle">${article.subtitle}</p>` : ''}
+              <div class="article-meta">
+                <span class="article-meta-badge">${article.article_type || 'Feature'}</span>
+                <span>${article.read_time_minutes} min read</span>
+                ${article.published_at ? `<span>${new Date(article.published_at).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}</span>` : ''}
+              </div>
+            </div>
+          </header>
+
+          <div class="article-body-wrapper">
+            <div class="article-body">${article.body_html}</div>
+            ${ctaHtml}
+          </div>
+
+          ${relatedHtml}
+
+          <footer class="article-footer">
+            <a href="/">← Back to LUXE STANDARD</a>
+            &nbsp;·&nbsp;
+            <span>Affiliate disclosure: links marked ↗ may earn us a commission at no cost to you.</span>
+          </footer>
+        `;
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('article-content').style.display = 'block';
+      } catch(e) {
+        document.getElementById('loading').innerHTML = `
+          <div style="text-align:center">
+            <div style="font-family:var(--font-display);font-size:2rem;margin-bottom:1rem">Article not found.</div>
+            <a href="/" style="color:var(--gold);font-size:0.9rem">← Return to archive</a>
+          </div>`;
+      }
+    }
+
+    loadArticle();
+  </script>
+</body>
+</html>

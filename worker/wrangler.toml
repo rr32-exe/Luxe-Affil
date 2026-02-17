@@ -1,0 +1,42 @@
+name = "luxe-affiliate-worker"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# ─── D1 Database ───────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "luxe-db"
+database_id = "REPLACE_WITH_YOUR_D1_ID"  # run: wrangler d1 create luxe-db
+
+# ─── R2 Bucket ─────────────────────────────────────────────────────────────────
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "luxe-assets"
+
+# ─── Workers AI ────────────────────────────────────────────────────────────────
+[ai]
+binding = "AI"
+
+# ─── KV (caching) ──────────────────────────────────────────────────────────────
+[[kv_namespaces]]
+binding = "CACHE"
+id = "REPLACE_WITH_YOUR_KV_ID"  # run: wrangler kv:namespace create CACHE
+
+# ─── Environment Variables ──────────────────────────────────────────────────────
+[vars]
+ENVIRONMENT = "production"
+SITE_NAME = "LUXE STANDARD"
+SITE_URL = "https://your-pages-domain.pages.dev"
+ADMIN_SECRET = "REPLACE_WITH_STRONG_SECRET"  # used for admin API calls
+
+# ShareASale affiliate config (free to join: shareasale.com)
+SHAREASALE_AFFILIATE_ID = "REPLACE_WITH_YOUR_SHAREASALE_ID"
+
+# Impact.com affiliate config (free to join: impact.com)
+IMPACT_AFFILIATE_ID = "REPLACE_WITH_YOUR_IMPACT_ID"
+
+# ─── Routes ────────────────────────────────────────────────────────────────────
+[[routes]]
+pattern = "your-domain.com/api/*"
+zone_name = "your-domain.com"

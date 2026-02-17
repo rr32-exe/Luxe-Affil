@@ -1,0 +1,7 @@
+# Cloudflare Pages _redirects
+# This file must be in the build output (dist/) directory
+# Vite copies public/ to dist/, so place _redirects in frontend/public/
+
+/articles/*  /article.html  200
+/category/*  /category.html 200
+/admin/*     /admin.html    200
