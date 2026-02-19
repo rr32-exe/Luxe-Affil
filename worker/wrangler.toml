@@ -36,6 +36,10 @@ SHAREASALE_AFFILIATE_ID = "REPLACE_WITH_YOUR_SHAREASALE_ID"
 # Impact.com affiliate config (free to join: impact.com)
 IMPACT_AFFILIATE_ID = "REPLACE_WITH_YOUR_IMPACT_ID"
 
+# Optional network IDs (only needed if you later auto-build links)
+AWIN_AFFILIATE_ID = ""
+CJ_AFFILIATE_ID = ""
+
 # ─── Routes ────────────────────────────────────────────────────────────────────
 [[routes]]
 pattern = "your-domain.com/api/*"

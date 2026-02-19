@@ -78,7 +78,12 @@ SITE_URL = "https://luxe-affiliate.pages.dev"  # your Pages URL
 ADMIN_SECRET = "your-strong-secret-here"        # make this hard to guess!
 SHAREASALE_AFFILIATE_ID = "your-id"
 IMPACT_AFFILIATE_ID = "your-id"
+AWIN_AFFILIATE_ID = ""                           # optional
+CJ_AFFILIATE_ID = ""                             # optional
 ```
+
+For **launch day minimal config**, only `SITE_URL` and `ADMIN_SECRET` are mandatory.
+You can paste full affiliate URLs directly in Admin, so Awin/CJ IDs are optional.
 
 ### 5. Run database migrations
 
@@ -154,7 +159,7 @@ Visit `https://your-pages-url.pages.dev/admin/` and enter your `ADMIN_SECRET`.
 #### Adding Affiliate Links
 
 1. Go to **Affiliate Links** → **Add Link**
-2. Paste your ShareASale/Impact link URL
+2. Paste your ShareASale/Impact/Awin/CJ link URL
 3. Fill in product details
 4. Save
 
@@ -209,6 +214,18 @@ Redeploy: `wrangler deploy`
    - **Travel**: Booking.com, Airbnb, Hopper
    - **Tech**: Samsung, Lenovo, Bose
 3. Use the Impact link format from their dashboard
+
+### Awin
+
+1. Sign up at [awin.com](https://www.awin.com)
+2. Get your tracking/deep links from the Awin dashboard
+3. Paste the full generated link directly into **Affiliate Links → Add Link**
+
+### CJ (Commission Junction)
+
+1. Sign up at [cj.com](https://www.cj.com)
+2. Generate deep links from your CJ advertiser dashboard
+3. Paste the full generated link directly into **Affiliate Links → Add Link**
 
 ### Commission Junction (CJ)
 
@@ -329,6 +346,12 @@ wrangler d1 execute luxe-db --command "INSERT INTO categories (slug, name, descr
 **"Unauthorized"** — Check `ADMIN_SECRET` in `wrangler.toml` matches what you type in the admin panel.
 
 **Worker returns 404 on /api/** — Ensure Pages functions routing is configured (Step 8).
+
+**Custom domain root (e.g. `blog.swankyboyz.com`) returns 404**
+1. Confirm Pages deploy is successful and includes `index.html`
+2. In Pages → **Custom Domains**, add `blog.swankyboyz.com` and wait for **Active**
+3. In Cloudflare DNS, ensure `blog` is a proxied CNAME to your `*.pages.dev` target
+4. Do **not** route `blog.swankyboyz.com/*` to Worker unless Worker serves HTML root
 
 **Articles not loading on frontend** — Open browser console; check for CORS errors. Ensure Worker is deployed and routing is set up.
 
